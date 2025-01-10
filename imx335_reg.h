@@ -7,13 +7,12 @@
   ******************************************************************************
   * @attention
   *
-  * <h2><center>&copy; Copyright (c) 2022 STMicroelectronics.
-  * All rights reserved.</center></h2>
+  * Copyright (c) 2022 STMicroelectronics.
+  * All rights reserved.
   *
-  * This software component is licensed by ST under BSD 3-Clause license,
-  * the "License"; You may not use this file except in compliance with the
-  * License. You may obtain a copy of the License at:
-  *                        opensource.org/licenses/BSD-3-Clause
+  * This software is licensed under terms that can be found in the LICENSE file
+  * in the root directory of this software component.
+  * If no LICENSE file comes with this software, it is provided AS-IS.
   *
   ******************************************************************************
   */
@@ -57,28 +56,38 @@
 #define IMX335_MODE_STANDBY         0x01
 
 #define IMX335_REG_HOLD           0x3001
-#define IMX335_REG_LPFR           0x3030
+#define IMX335_REG_VMAX           0x3030
 #define IMX335_REG_SHUTTER        0x3058
-#define IMX335_REG_AGAIN          0x30e8
+#define IMX335_REG_GAIN           0x30e8
+#define IMX335_REG_TPG            0x329e
 
 #define IMX335_REG_ID             0x3912
 #define IMX335_CHIP_ID            0x00
 
-#define IMX335_EXPOSURE_MIN       1
-#define IMX335_EXPOSURE_OFFSET    9
-#define IMX335_EXPOSURE_DEFAULT   0x648
+#define IMX335_SHUTTER_MIN        9
 
-#define IMX335_AGAIN_MIN          0
-#define IMX335_AGAIN_MAX          240
- /* TODO: Value quite arbitrary */
-#define IMX335_AGAIN_DEFAULT      (IMX335_AGAIN_MAX / 8)
+#define IMX335_EXPOSURE_DEFAULT   23814
 
-/* For 2592x1940 */
+#define IMX335_NAME               "IMX335"
+#define IMX335_BAYER_PATTERN      0 /* From ISP definition RGGB / TODO comnon enumeration in camera */
+#define IMX335_COLOR_DEPTH        10 /* in bits */
+#define IMX335_GAIN_MIN           (0 * 1000)
+#define IMX335_GAIN_MAX           (72 * 1000)
+#define IMX335_GAIN_DEFAULT       (20 * 1000)
+#define IMX335_GAIN_UNIT_MDB      300
+#define IMX335_EXPOSURE_MIN       0           /* in us */
+#define IMX335_EXPOSURE_MAX       33266       /* in us, for sensor @30fps */
+
+
+
+#define IMX335_REG_HREVERSE       0x304EU
+#define IMX335_REG_VREVERSE       0x304FU
+#define AREA3_ST_ADR_1_LSB        0x3074U
+#define AREA3_ST_ADR_1_MSB        0x3075U
+
+/* For 2592x1944 */
 #define IMX335_WIDTH              2592
-#define IMX335_HEIGHT             1940
-#define IMX335_VBLANK_MIN         2560
-#define IMX335_VBLANK_MAX         133060
-#define IMX335_VBLANK_DEF         IMX335_VBLANK_MIN
+#define IMX335_HEIGHT             1944
 #define IMX335_PCLK               396000000
 
 /**
@@ -128,5 +137,3 @@ int32_t imx335_register_set(imx335_ctx_t *ctx, uint16_t reg, uint8_t value);
 /**
   * @}
   */
-
-/************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/
